@@ -33,7 +33,7 @@ I built this project to get hands-on experience designing, deploying, and managi
 
 ---
 
-## Tech stack
+## Tech Stack ⚙️
 
 Layer            |    Technology
 Authentication   |    Amazon Cognito
@@ -81,14 +81,46 @@ Infrastructure   |    Terraform
 
 None of these were caught by a tutorial — they only surfaced once multiple real AWS services were wired together and actually deployed. Each one required tracing a symptom back through the request path to find where two services disagreed about a contract, not just retrying until something worked:
 
-| Symptom | Root cause | Fix |
-|---|---|---|
-| Cognito `invalid_request` error on login | `callback_urls` in Cognito hardcoded an old CloudFront domain from a previous deploy | Reference `aws_cloudfront_distribution.frontend.domain_name` directly instead of a literal string |
-| Browser blocked API calls with a CORS error | API Gateway's `allow_origins` hardcoded an old CloudFront URL | Same fix — derive it from the CloudFront resource |
-| Frontend fix didn't appear after redeploying | CloudFront was serving a cached copy of `script.js` | Set `cache_control = "no-cache"` on S3 objects and use the `CachingOptimized` managed cache policy so CloudFront revalidates on every request |
-| Every API call returned `401 Unauthorized` even with a valid, unexpired token | Lambda read `event["requestContext"]["authorizer"]["claims"]`, which is the **REST API** shape. HTTP API nests claims one level deeper | Changed to `event["requestContext"]["authorizer"]["jwt"]["claims"]` in all three functions |
-| The 401 above was hard to diagnose | A generic `except KeyError: return 401` in each Lambda function caught *any* code bug and misreported it as an auth failure | Isolated the JWT claim lookup into its own try/except, separate from business logic errors |
-| `terraform plan` suddenly showed 34 resources to add on a project that was already deployed | Had run `terraform destroy` earlier in the session and forgotten | Confirmed via `terraform state list` (empty) before reapplying, to avoid creating duplicate/orphaned resources |
+
+
+Engineering Challenges
+
+🔐 Cognito Login
+
+Problem: "invalid_request" during login
+Cause: Callback URL was pointing to an old CloudFront domain
+Fix: Connected the Cognito callback URL to the CloudFront resource through Terraform
+
+🌐 CORS Error
+
+Problem: Browser blocked API requests
+Cause: API Gateway had an outdated frontend origin
+Fix: Configured the origin dynamically from the CloudFront resource
+
+⚡ CloudFront Caching
+
+Problem: Frontend changes were not appearing
+Cause: CloudFront was serving a cached "script.js"
+Fix: Adjusted the S3/CloudFront caching configuration
+
+🔑 JWT / 401 Error
+
+Problem: API returned "401 Unauthorized" even with a valid token
+Cause: Lambda was using the REST API JWT claim structure instead of the HTTP API structure
+Fix: Updated the Lambda JWT claim lookup for HTTP API
+
+🐛 Error Handling
+
+Problem: Different errors were being reported as "401 Unauthorized"
+Cause: A generic "KeyError" handler caught unrelated errors
+Fix: Separated JWT claim handling from application logic
+
+🏗️ Terraform State
+
+Problem: Terraform planned to recreate the entire infrastructure
+Cause: Terraform state had been destroyed
+Fix: Checked the state and recreated the infrastructure with "terraform apply"
+
 
 ---
 
