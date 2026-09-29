@@ -4,8 +4,9 @@ A full-stack personal expense tracker built entirely on serverless AWS infrastru
 
 **Live demo:** `https://d3bc09xnpkrjrx.cloudfront.net`
 
-![Dashboard screenshot](docs/screenshot-dashboard.png)
-*(add a screenshot here before publishing)*
+![Dashboard screenshot]
+<img width="1916" height="916" alt="Screenshot 2026-09-29 185848" src="https://github.com/user-attachments/assets/1a28a335-febf-4927-a631-f9a6e5af0e7c" />
+
 
 ---
 
@@ -160,4 +161,5 @@ tears down all resources.
 - **S3 bucket is public** rather than private-behind-CloudFront via Origin Access Control (OAC) — a stronger security posture for a production app.
 - **No billing alarm** — a CloudWatch billing/budget alarm would catch unexpected cost before it grows.
 - **CloudWatch alarms have no notification target** — they change state but don't alert anyone; wiring them to an SNS topic with email/Slack would close that gap.
-- **No automated tests** — the app was verified manually end-to-end (signup → login → CRUD → logout → re-login to confirm persistence).
+- **No automated tests** — No automated tests yet; testing was done manually.
+- 
