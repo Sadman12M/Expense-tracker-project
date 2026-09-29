@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Expense Tracker</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<noscript>This app needs JavaScript to run.</noscript>
+
+<div id="login-screen">
+  <div class="login-card">
+    <div class="logo-badge">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="14" rx="2"></rect><path d="M2 10h20"></path></svg>
+    </div>
+    <div class="login-text">
+      <h1>Expense Tracker</h1>
+      <p>Track spending across every category,<br>synced securely to your account.</p>
+    </div>
+    <div style="width:100%; display:flex; flex-direction:column; gap:12px;">
+      <button class="btn-primary" onclick="login()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><path d="M10 17l5-5-5-5"></path><path d="M15 12H3"></path></svg>
+        Continue to sign in
+      </button>
+      <p class="hint">You'll sign up or log in on the next screen</p>
+    </div>
+    <div class="secured">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#948F81" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+      <span>Secured by Amazon Cognito</span>
+    </div>
+  </div>
+</div>
+
+<div id="dashboard">
+  <div class="topbar">
+    <div class="brand">
+      <div class="logo-badge" style="width:36px;height:36px;border-radius:10px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="14" rx="2"></rect><path d="M2 10h20"></path></svg>
+      </div>
+      <span>Expense Tracker</span>
+    </div>
+    <div style="display:flex; align-items:center; gap:16px;">
+      <div class="user-pill">
+        <div class="avatar" id="avatar-letter">U</div>
+        <span id="username-display" style="font-size:13px; color:#3E3B34;"></span>
+      </div>
+      <button class="btn-outline" onclick="logout()">Log out</button>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="stats-row">
+      <div class="stat-card"><div class="label">Spent this month</div><div class="value" id="stat-total">$0.00</div></div>
+      <div class="stat-card"><div class="label">Transactions</div><div class="value" id="stat-count">0</div></div>
+      <div class="stat-card"><div class="label">Top category</div><div class="value" id="stat-top">—</div></div>
+    </div>
+
+    <div class="main-row">
+      <div class="form-card">
+        <h2 style="font-size:17px; font-weight:600;">Add expense</h2>
+        <div class="field"><label for="amount">Amount</label><input id="amount" type="number" step="0.01" min="0.01" max="10000000" placeholder="0.00"></div>
+        <div class="field"><label for="category">Category</label>
+          <select id="category"><option>Food</option><option>Transport</option><option>Rent</option><option>Utilities</option><option>Other</option></select>
+        </div>
+        <div class="field"><label for="description">Description</label><input id="description" type="text" maxlength="200" placeholder="e.g. Groceries"></div>
+        <div class="field"><label for="date">Date</label><input id="date" type="date"></div>
+        <button class="btn-primary" onclick="addExpense()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"></path></svg>
+          Add expense
+        </button>
+      </div>
+
+      <div class="list-card">
+        <h2 style="font-size:17px; font-weight:600; margin-bottom:12px;">Recent expenses</h2>
+        <div class="row-grid table-head"><div>Date</div><div>Category</div><div>Description</div><div style="text-align:right;">Amount</div><div></div></div>
+        <div id="expense-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="config.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

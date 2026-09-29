@@ -1,0 +1,19 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+
+
+# Terraform crash logs
+crash.log
+crash.*.log
+
+# Lambda build artifacts
+modules/build/
+
+# Credentials / secrets
+.aws-credentials
+.env
+*.pem
+
