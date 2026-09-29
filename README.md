@@ -35,16 +35,15 @@ I built this project to get hands-on experience designing, deploying, and managi
 
 ## Tech stack
 
-| Layer | Service | Why |
-|---|---|---|
-| Auth | Amazon Cognito | Managed user pool, hosted login UI, JWT issuance |
-| API | API Gateway (HTTP API) | Cheaper and simpler than REST API; native JWT authorizer support |
-| Compute | AWS Lambda (Python 3.12) | Pay-per-request, no idle server cost |
-| Database | DynamoDB (on-demand) | No capacity planning, scales to zero cost when idle |
-| Frontend hosting | S3 + CloudFront | Static hosting behind a CDN with HTTPS |
-| Monitoring | CloudWatch | Log groups per function, error alarms |
-| IaC | Terraform | Entire stack reproducible from `terraform apply` |
-
+Layer            |    Technology
+Authentication   |    Amazon Cognito
+API              |    API Gateway HTTP API
+Backend          |    AWS Lambda + python 3.12
+Database         |    Amazon DynamoDB
+Frontend Hosting |    Amazon S3
+CDN              |    Amazon CloudFront
+Monitoring       |    Amazon CloudWatch
+Infrastructure   |    Terraform 
 ---
 
 ## Why these choices
