@@ -5,7 +5,8 @@ A full-stack personal expense tracker built entirely on serverless AWS infrastru
 **Live demo:** `https://d3bc09xnpkrjrx.cloudfront.net`
 
 ![Dashboard screenshot]
-<img width="1916" height="916" alt="Screenshot 2026-09-29 185848" src="https://github.com/user-attachments/assets/1a28a335-febf-4927-a631-f9a6e5af0e7c" />
+<img width="1916" height="917" alt="image" src="https://github.com/user-attachments/assets/994449db-612c-441a-a87b-c1bf7389db4d" />
+
 
 
 ---
